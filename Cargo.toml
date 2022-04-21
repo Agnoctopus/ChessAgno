@@ -1,0 +1,12 @@
+[package]
+name = "chess_agno"
+version = "0.1.0"
+edition = "2021"
+authors = ["César Belley <cesar.belley@lse.epita.fr>"]
+license = "GPL-2.0"
+repository = "https://github.com/MattGorko/ChessAgno"
+keywords = ["chess", "ai"]
+description= "A young sheep AI for chess"
+
+
+[dependencies]
