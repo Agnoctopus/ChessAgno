@@ -2,4 +2,5 @@
 
 #![warn(missing_docs)]
 
-mod board;
+pub mod board;
+pub mod fen;
