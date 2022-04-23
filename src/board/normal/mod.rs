@@ -1,4 +1,5 @@
 use super::ChessBoard;
+use crate::fen::Fen;
 
 mod board;
 
@@ -13,7 +14,7 @@ impl NormalBoard {
 }
 
 impl ChessBoard for NormalBoard {
-    fn setup_board(fen: crate::fen::Fen) {
+    fn setup_board(&mut self, fen: Fen) {
         todo!()
     }
 }
