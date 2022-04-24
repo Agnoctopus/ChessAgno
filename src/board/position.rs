@@ -18,7 +18,7 @@ pub enum File {
 #[repr(u8)]
 pub enum Rank {
     One = 0,
-    Tow,
+    Two,
     Three,
     Four,
     Five,

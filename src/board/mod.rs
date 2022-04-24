@@ -1,8 +1,10 @@
 use crate::fen::Fen;
 
 mod bit;
+mod color;
 mod normal;
 mod piece;
+mod position;
 
 pub use bit::BitBoard;
 pub use normal::NormalBoard;
