@@ -2,6 +2,7 @@ use crate::fen::Fen;
 
 mod bit;
 mod normal;
+mod piece;
 
 pub use bit::BitBoard;
 pub use normal::NormalBoard;
