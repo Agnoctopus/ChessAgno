@@ -106,17 +106,58 @@ const SLIDING_NO_DIAG_PIECES: [bool; PIECES_NUM] = [
     false, true, true, false, false, false
 ];
 
+/// Pieces by color and piece type
+const COLOR_TYPES_PIECES: [[Piece; 6]; 3] =
+[
+    [
+        Piece::None, Piece::None, Piece::None,
+        Piece::None, Piece::None, Piece::None,
+    ], [
+        Piece::WKing, Piece::WQueen, Piece::WRook,
+        Piece::WBishop, Piece::WKnight, Piece::WPawn
+    ], [
+        Piece::BKing, Piece::BQueen, Piece::BRook,
+        Piece::BBishop, Piece::BKnight, Piece::BPawn
+    ],
+];
+
+/// Color pieces
 const COLOR_PIECES: [Color; PIECES_NUM] = [
     Color::None,
+    // White
     Color::White, Color::White, Color::White,
     Color::White, Color::White, Color::White,
-
+    // Black
     Color::Black, Color::Black, Color::Black,
     Color::Black, Color::Black, Color::Black,
 ];
 
+/// Piece types for pieces
+const TYPES_PIECES: [PieceType; PIECES_NUM] = [
+    PieceType::Pawn,
+    // White
+    PieceType::King, PieceType::Queen, PieceType::Rook,
+    PieceType::Bishop, PieceType::Knight, PieceType::Pawn,
+    // Black
+    PieceType::King, PieceType::Queen, PieceType::Rook,
+    PieceType::Bishop, PieceType::Knight, PieceType::Pawn,
+];
+
+/// Piece types char FEN representation
+const CHAR_PIECES: [char; PIECES_NUM] = [
+    '.',
+    'K', 'Q', 'R', 'B', 'N', 'P',
+    'k', 'q', 'r', 'b', 'n', 'p'
+];
+
 
 impl Piece {
+    /// Get the piece associated to a color and a piece type
+    #[inline]
+    pub fn from_color_type(color: Color, piece_type: PieceType) -> Piece {
+        COLOR_TYPES_PIECES[color as usize][piece_type as usize]
+    }
+
     /// Returns whether or not the piece is sliding
     #[inline]
     pub fn is_sliding(self) -> bool {
@@ -139,5 +180,44 @@ impl Piece {
     #[inline]
     pub fn color(self) -> Color {
         COLOR_PIECES[self as usize]
+    }
+
+    /// Returns the piece type
+    #[inline]
+    pub fn piece_type(self) -> PieceType {
+        TYPES_PIECES[self as usize]
+    }
+
+    /// Returns the piece type char representation
+    #[inline]
+    pub fn to_fen_char(self) -> char {
+        CHAR_PIECES[self as usize]
+    }
+}
+
+impl TryFrom<char> for Piece {
+    type Error = String;
+
+    fn try_from(c: char) -> Result<Self, Self::Error> {
+        let piece = match c {
+            '.' => Piece::None,
+            // White
+            'K' => Piece::WKing,
+            'Q' => Piece::WQueen,
+            'R' => Piece::WRook,
+            'B' => Piece::WBishop,
+            'N' => Piece::WKnight,
+            'P' => Piece::WPawn,
+            // Black
+            'k' => Piece::BKing,
+            'q' => Piece::BQueen,
+            'r' => Piece::BRook,
+            'b' => Piece::BBishop,
+            'n' => Piece::BKnight,
+            'p' => Piece::BPawn,
+            _ => return Err(format!("Unknown piece: {}", c))
+        };
+
+        Ok(piece)
     }
 }
