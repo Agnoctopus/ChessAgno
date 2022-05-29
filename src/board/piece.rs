@@ -1,6 +1,6 @@
 //! Pieces
 
-use std::slice::Iter;
+use std::{slice::Iter, intrinsics::transmute};
 
 use super::color::Color;
 
@@ -217,6 +217,19 @@ impl TryFrom<char> for Piece {
             'p' => Piece::BPawn,
             _ => return Err(format!("Unknown piece: {}", c))
         };
+
+        Ok(piece)
+    }
+}
+
+impl TryFrom<u8> for Piece {
+    type Error = String;
+
+    fn try_from(val: u8) -> Result<Self, Self::Error> {
+        if val as usize >= PIECES_NUM {
+            return Err(format!("Unknown piece value: {}", val));
+        }
+        let piece = unsafe { transmute(val) };
 
         Ok(piece)
     }

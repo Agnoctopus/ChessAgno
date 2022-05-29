@@ -1,14 +1,16 @@
 use crate::fen::Fen;
 
 mod bit;
-mod color;
+pub mod color;
 mod normal;
+mod moving;
 mod piece;
 mod position;
 
 pub use bit::BitBoard;
 pub use normal::NormalBoard;
 
-pub trait ChessBoard {
+/// Board representation shared behavior
+pub trait Board {
     fn setup_board(&mut self, fen: Fen);
 }

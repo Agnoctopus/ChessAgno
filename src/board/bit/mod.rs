@@ -1,9 +1,9 @@
-use super::ChessBoard;
+use super::Board;
 use crate::fen::Fen;
 
 pub struct BitBoard {}
 
-impl ChessBoard for BitBoard {
+impl Board for BitBoard {
     fn setup_board(&mut self, fen: Fen) {
         todo!()
     }
